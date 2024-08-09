@@ -1,1 +1,1 @@
-# webdev Template (no frameworks, webpack, airbnb, ESLint)
+# webdev Template (webpack, airbnb, ESLint)
