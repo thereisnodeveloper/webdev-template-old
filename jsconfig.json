@@ -5,8 +5,9 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": "./src",
         "paths": {
-            "@/*": ["*"]
-        }
+            "@/*": ["*"],
+        },
+        "checkJs": true
     },
     "exclude": ["node_modules", "dist"]
 }
