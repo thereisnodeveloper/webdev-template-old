@@ -19,15 +19,27 @@ const testElem = document.createElement('div');
 // constants
 const domInputs = document.querySelectorAll('input');
 const passwordOriginal = document.querySelector('input#password');
-const passwordToCompare = document.querySelector('input#password');
+const passwordToCompare = document.querySelector('input#confirm-password');
 const countryValidity = document.querySelector('#country').validity;
 
 // event callback functions
-function checkPassword() {
-  /** @type {HTMLInputElement} */
-  console.log('passwordOriginal:', passwordOriginal.validity);
-  return passwordOriginal.validity.patternMismatch;
+function checkPassword(targetPassword) {
+  // const passwords = [passwordOriginal, passwordToCompare];
+
+  function isEachPasswordValid(password) {
+    password.setCustomValidity('');
+
+    if (!password.validity.valid) {
+      password.setCustomValidity('Password should be 4-8 digits, numbers only');
+    } else {
+      password.setCustomValidity('');
+    }
+    return password.reportValidity();
+  }
+  return isEachPasswordValid(targetPassword);
 }
+// document.querySelector('input').valid;
 
 // bulk addEventLisitener
-passwordOriginal.addEventListener('input', checkPassword);
+passwordOriginal.addEventListener('input', (event) => checkPassword(event.target));
+passwordToCompare.addEventListener('input', (event) => checkPassword(event.target));
