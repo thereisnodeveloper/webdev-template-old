@@ -12,6 +12,22 @@ const testElem = document.createElement('div');
 // novalidate
 
 // [ ] TODO: write JS validation for each
+// [ ] TODO:  password- length, pattern
+// [ ] TODO: password- check with confirmation password
 // [ ] TODO:
-// [ ] TODO:
-// [ ] TODO:
+
+// constants
+const domInputs = document.querySelectorAll('input');
+const passwordOriginal = document.querySelector('input#password');
+const passwordToCompare = document.querySelector('input#password');
+const countryValidity = document.querySelector('#country').validity;
+
+// event callback functions
+function checkPassword() {
+  /** @type {HTMLInputElement} */
+  console.log('passwordOriginal:', passwordOriginal.validity);
+  return passwordOriginal.validity.patternMismatch;
+}
+
+// bulk addEventLisitener
+passwordOriginal.addEventListener('input', checkPassword);
