@@ -1,4 +1,3 @@
-// @ts-check
 import './reset.css';
 import './style.css';
 
