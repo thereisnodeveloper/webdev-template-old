@@ -1,4 +1,3 @@
-// @ts-check
 // Build a browser form which collects Email, Country, Zip Code, Password and
 // Password Confirmation fields
 
@@ -12,20 +11,23 @@ const testElem = document.createElement('div');
 // novalidate
 
 // [ ] TODO: write JS validation for each
-// [ ] TODO:  password- length, pattern
-// [ ] TODO: password- check with confirmation password
-// [ ] TODO:
+// [x] TODO:  password- length, pattern
+// [x] TODO: password- check with confirmation password
+// [] TODO: email - make sure it matches pattern
+// [] TODO: country - validate from list of countries
+// [] TODO: zip - ????
 
 // constants
 const domInputs = document.querySelectorAll('input');
-const passwordOriginal = document.querySelector('input#password');
-const passwordToCompare = document.querySelector('input#confirm-password');
-const countryValidity = document.querySelector('#country').validity;
+const [
+  passwordOriginal = document.querySelector('input#password'),
+  passwordToCompare = document.querySelector('input#confirm-password'),
+  email = document.querySelector('input#email')
+  country = document.querySelector('#country'),
+] = [];
 
 // event callback functions
-function checkPassword(targetPassword) {
-  // const passwords = [passwordOriginal, passwordToCompare];
-
+function checkPasswordPattern(targetPassword) {
   function isEachPasswordValid(password) {
     password.setCustomValidity('');
 
@@ -38,8 +40,20 @@ function checkPassword(targetPassword) {
   }
   return isEachPasswordValid(targetPassword);
 }
+
+function comparePasswords() {
+  passwordToCompare.setCustomValidity('');
+  if (passwordOriginal.value !== passwordToCompare.value) {
+    passwordToCompare.setCustomValidity('Passwords should match');
+    // console.log(passwordToCompare.reportValidity());
+  }
+  passwordToCompare.reportValidity();
+}
 // document.querySelector('input').valid;
 
 // bulk addEventLisitener
-passwordOriginal.addEventListener('input', (event) => checkPassword(event.target));
-passwordToCompare.addEventListener('input', (event) => checkPassword(event.target));
+
+passwordOriginal.addEventListener('input', (event) => checkPasswordPattern(event.target));
+passwordToCompare.addEventListener('input', (event) => checkPasswordPattern(event.target));
+passwordToCompare.addEventListener('input', comparePasswords);
+
