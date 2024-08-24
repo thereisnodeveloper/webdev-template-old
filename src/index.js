@@ -1,5 +1,5 @@
-// B * Build a browser form which collects Email, Country, Zip Code, Password and
- * Password Confirmation fields
+// B * Build a browser form which collects Email, Country, Zip Code, Password
+// and Password Confirmation fields
 import './reset.css';
 import './style.css';
 
@@ -29,9 +29,16 @@ const [
 // event callback functions
 // generic validity check
 
+/**
+ * @description
+ * @param {HTMLInputElement} input
+ * @param {*} message
+ * @param {Boolean} [invalidCondition=!input.validity.valid]
+ * @return {*}
+ */
 function isInputValid(input, message, invalidCondition = !input.validity.valid) {
-  const inputNotValid = invalidCondition
-  console.log('input:', input);
+  const inputNotValid = invalidCondition;
+  // console.log('input:', input);
 
   input.setCustomValidity('');
   if (inputNotValid) {
@@ -39,7 +46,10 @@ function isInputValid(input, message, invalidCondition = !input.validity.valid) 
   } else {
     input.setCustomValidity('');
   }
-  console.log(input.reportValidity());
+
+  // console.log(input.reportValidity());
+  // console.log(`input.validationMessage${input.validationMessage}`);
+  // console.log(`input.reportValidity(): ${input.reportValidity()}`);
   return input.reportValidity();
 }
 
@@ -57,12 +67,14 @@ function comparePasswords() {
 }
 
 function validateEmail() {
-  return isInputValid(email, 'Email pattern does not match', email.validity.patternMismatch);
+  // return isInputValid(email, 'Email pattern does not match', email.validity.typeMismatch);
+  return isInputValid(email, '', email.validity.typeMismatch);
 }
+function validateCountry() {}
 
 // bulk addEventLisitener
 
 passwordOriginal.addEventListener('input', (event) => checkPasswordPattern(event.target));
 passwordToCompare.addEventListener('input', (event) => checkPasswordPattern(event.target));
 passwordToCompare.addEventListener('input', comparePasswords);
-passwordToCompare.addEventListener('input', validateEmail);
+email.addEventListener('input', validateEmail);
