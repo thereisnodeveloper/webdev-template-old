@@ -11,6 +11,7 @@
     <form action="" method="post" novalidate>
         <section>
             <legend>Enter information:</legend>
+
 <ul>
     <li><label aria-required="true"><span>Password: </span><input pattern="^\d{4,8}$"
     id="password" type="password"></label></li>
@@ -18,8 +19,10 @@
         id="confirm-password" type="password"></label></li>
         
     <li><label aria-required="true"><span>E-mail: </span><input id="email" type="email"></label></li>
-    <li><label aria-required="true"><span>Country: </span><input id="country" type="text"></label></li>
-    <li><label aria-required="true"><span>Zip: </span><input id="zip" type="text"></label></li>
+    <li><label aria-required="true"><span>Country: </span><input id="country"
+    type="text" pattern="^[\p{L}\s\-]{4,10}$"></label></li>
+    <li><label aria-required="true" ><span>Zip: </span><input id="zip"
+    type="text" pattern="^[\-\d]{3,10}$"></label></li>
 </ul>            
 <button type="submit"  >Send Response</button>
 

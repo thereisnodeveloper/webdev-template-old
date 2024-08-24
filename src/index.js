@@ -12,7 +12,8 @@ const testElem = document.createElement('div');
 // [ ] TODO: write JS validation for each
 // [x] TODO:  password- length, pattern
 // [x] TODO: password- check with confirmation password
-// [] TODO: email - make sure it matches pattern
+// [x] TODO: email - make sure it matches pattern
+// [x] TODO: country - validate pattern
 // [] TODO: country - validate from list of countries
 // [] TODO: zip - ????
 
@@ -24,7 +25,13 @@ const [
   passwordToCompare = document.querySelector('input#confirm-password'),
   email = document.querySelector('input#email'),
   country = document.querySelector('#country'),
+  zip = document.querySelector('#zip')
 ] = [];
+
+// function to throw error if argument is missing
+function isRequired(argument) {
+  throw new Error(`missing argument: ${argument}`);
+}
 
 // event callback functions
 // generic validity check
@@ -33,10 +40,10 @@ const [
  * @description
  * @param {HTMLInputElement} input
  * @param {*} message
- * @param {Boolean} [invalidCondition=!input.validity.valid]
+ * @param {Boolean} [invalidCondition]
  * @return {*}
  */
-function isInputValid(input, message, invalidCondition = !input.validity.valid) {
+function isInputValid(input, message, invalidCondition) {
   const inputNotValid = invalidCondition;
   // console.log('input:', input);
 
@@ -47,9 +54,9 @@ function isInputValid(input, message, invalidCondition = !input.validity.valid) 
     input.setCustomValidity('');
   }
 
-  // console.log(input.reportValidity());
-  // console.log(`input.validationMessage${input.validationMessage}`);
-  // console.log(`input.reportValidity(): ${input.reportValidity()}`);
+  console.log(input.reportValidity());
+  console.log(`input.validationMessage: ${input.validationMessage}`);
+  console.log(`input.reportValidity(): ${input.reportValidity()}`);
   return input.reportValidity();
 }
 
@@ -70,7 +77,12 @@ function validateEmail() {
   // return isInputValid(email, 'Email pattern does not match', email.validity.typeMismatch);
   return isInputValid(email, '', email.validity.typeMismatch);
 }
-function validateCountry() {}
+function validateCountry() {
+  return isInputValid(country, '', country.validity.patternMismatch);
+}
+function validateZip() {
+  return isInputValid(zip, '', zip.validity.patternMismatch);
+}
 
 // bulk addEventLisitener
 
@@ -78,3 +90,5 @@ passwordOriginal.addEventListener('input', (event) => checkPasswordPattern(event
 passwordToCompare.addEventListener('input', (event) => checkPasswordPattern(event.target));
 passwordToCompare.addEventListener('input', comparePasswords);
 email.addEventListener('input', validateEmail);
+country.addEventListener('input', validateCountry);
+zip.addEventListener('input', validateZip)
