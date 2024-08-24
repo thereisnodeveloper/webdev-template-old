@@ -1,5 +1,15 @@
 #### Managing Workspace/Git
-- have CSS reset by default
+
 #### JavaScript
-- let images (and other elements) load before trying to measure/get information
-  from them
+declare DOM elements in an array with JSDOC
+```js
+  // constants
+  const domInputs = document.querySelectorAll('input');
+  /** @type {Array.<HTMLInputElement>} */
+  const [
+    passwordOriginal = document.querySelector('input#password'),
+    passwordToCompare = document.querySelector('input#confirm-password'),
+    email = document.querySelector('input#email'),
+    country = document.querySelector('#country'),
+  ] = [];
+```

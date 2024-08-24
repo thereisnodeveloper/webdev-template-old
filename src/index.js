@@ -1,6 +1,5 @@
-// Build a browser form which collects Email, Country, Zip Code, Password and
-// Password Confirmation fields
-
+// B * Build a browser form which collects Email, Country, Zip Code, Password and
+ * Password Confirmation fields
 import './reset.css';
 import './style.css';
 
@@ -17,28 +16,35 @@ const testElem = document.createElement('div');
 // [] TODO: country - validate from list of countries
 // [] TODO: zip - ????
 
-// constants
+// DOM elements
 const domInputs = document.querySelectorAll('input');
+/** @type {Array.<HTMLInputElement>} */
 const [
   passwordOriginal = document.querySelector('input#password'),
   passwordToCompare = document.querySelector('input#confirm-password'),
-  email = document.querySelector('input#email')
+  email = document.querySelector('input#email'),
   country = document.querySelector('#country'),
 ] = [];
 
 // event callback functions
-function checkPasswordPattern(targetPassword) {
-  function isEachPasswordValid(password) {
-    password.setCustomValidity('');
+// generic validity check
 
-    if (!password.validity.valid) {
-      password.setCustomValidity('Password should be 4-8 digits, numbers only');
-    } else {
-      password.setCustomValidity('');
-    }
-    return password.reportValidity();
+function isInputValid(input, message, invalidCondition = !input.validity.valid) {
+  const inputNotValid = invalidCondition
+  console.log('input:', input);
+
+  input.setCustomValidity('');
+  if (inputNotValid) {
+    input.setCustomValidity(message);
+  } else {
+    input.setCustomValidity('');
   }
-  return isEachPasswordValid(targetPassword);
+  console.log(input.reportValidity());
+  return input.reportValidity();
+}
+
+function checkPasswordPattern(targetPassword) {
+  return isInputValid(targetPassword, 'Password should be 4-8 digits, numbers only');
 }
 
 function comparePasswords() {
@@ -49,11 +55,14 @@ function comparePasswords() {
   }
   passwordToCompare.reportValidity();
 }
-// document.querySelector('input').valid;
+
+function validateEmail() {
+  return isInputValid(email, 'Email pattern does not match', email.validity.patternMismatch);
+}
 
 // bulk addEventLisitener
 
 passwordOriginal.addEventListener('input', (event) => checkPasswordPattern(event.target));
 passwordToCompare.addEventListener('input', (event) => checkPasswordPattern(event.target));
 passwordToCompare.addEventListener('input', comparePasswords);
-
+passwordToCompare.addEventListener('input', validateEmail);
