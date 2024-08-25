@@ -5,8 +5,8 @@ import './style.css';
 
 const testElem = document.createElement('div');
 
-// [ ] TODO:bulid HTML form
-// [ ] TODO:check HTML required
+// [x] TODO:bulid HTML form
+// [x] TODO:check HTML required
 // novalidate
 
 // [ ] TODO: write JS validation for each
@@ -15,7 +15,9 @@ const testElem = document.createElement('div');
 // [x] TODO: email - make sure it matches pattern
 // [x] TODO: country - validate pattern
 // [] TODO: country - validate from list of countries
-// [] TODO: zip - ????
+// [x] TODO: zip - allow numbers and '-' and whitespaces
+// [ ] TODO: make sure form doesn't submit if element is invalid
+  //trying to see if it is aria-required that is getting read wrong
 
 // DOM elements
 const domInputs = document.querySelectorAll('input');
@@ -25,7 +27,8 @@ const [
   passwordToCompare = document.querySelector('input#confirm-password'),
   email = document.querySelector('input#email'),
   country = document.querySelector('#country'),
-  zip = document.querySelector('#zip')
+  zip = document.querySelector('#zip'),
+  form = document.querySelector('form'),
 ] = [];
 
 // function to throw error if argument is missing
@@ -54,9 +57,9 @@ function isInputValid(input, message, invalidCondition) {
     input.setCustomValidity('');
   }
 
-  console.log(input.reportValidity());
-  console.log(`input.validationMessage: ${input.validationMessage}`);
-  console.log(`input.reportValidity(): ${input.reportValidity()}`);
+  // console.log(input.reportValidity());
+  // console.log(`input.validationMessage: ${input.validationMessage}`);
+  // console.log(`input.reportValidity(): ${input.reportValidity()}`);
   return input.reportValidity();
 }
 
@@ -84,6 +87,23 @@ function validateZip() {
   return isInputValid(zip, '', zip.validity.patternMismatch);
 }
 
+function formSubmissionHandler(event) {
+  event.preventDefault();
+  /** @type {HTMLFormElement} */
+  const form = event.target;
+  console.log('form.checkValidity():', form.checkValidity())
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    console.log('form not valid');
+  } else {
+    const msg = document.createElement('div', {
+      textContent: 'Form Submitted',
+    });
+    document.body.appendChild(msg);
+    console.log('form submitted');
+  }
+}
+
 // bulk addEventLisitener
 
 passwordOriginal.addEventListener('input', (event) => checkPasswordPattern(event.target));
@@ -91,4 +111,15 @@ passwordToCompare.addEventListener('input', (event) => checkPasswordPattern(even
 passwordToCompare.addEventListener('input', comparePasswords);
 email.addEventListener('input', validateEmail);
 country.addEventListener('input', validateCountry);
-zip.addEventListener('input', validateZip)
+zip.addEventListener('input', validateZip);
+form.addEventListener('submit', (event) => formSubmissionHandler(event));
+
+function preventEmpty(input) {
+  if (input.validity.valueMissing) {
+    console.log('missing value');
+    console.log(input.validity.reportValidity());
+  }
+}
+[passwordOriginal, passwordToCompare, email, country, zip].forEach((input) => {
+  input.addEventListener('submit', () => preventEmpty(input));
+});
