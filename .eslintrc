@@ -1,16 +1,21 @@
 {
-  "extends": "airbnb-base",
+  "plugins": ["sonarjs"],
+  "extends": ["airbnb-base", "plugin:n/recommended", "plugin:sonarjs/recommended-legacy", "plugin:unicorn/recommended"],
+
 
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module",
+    "sourceType": "module"
   },
   "env": {
     "es2022": true,
     "browser": true,
-    "node": true,
+    "node": true
   },
   "rules": {
-    // "indent": ["error", 4, { "ignoreComments": true }],
-  },
+    "handle-callback-err": "error",
+    "n/exports-style": ["error", "module.exports"],
+			"unicorn/better-regex": "warn"
+    // "indent": ["error", 4, {   "ignoreComments": true }],
+  }
 }

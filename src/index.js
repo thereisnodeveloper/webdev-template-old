@@ -4,7 +4,7 @@ import './reset.css';
 import './style.css';
 
 const testElem = document.createElement('div');
-
+  //
 // [x] TODO:bulid HTML form
 // [x] TODO:check HTML required
 // novalidate
@@ -17,7 +17,7 @@ const testElem = document.createElement('div');
 // [] TODO: country - validate from list of countries
 // [x] TODO: zip - allow numbers and '-' and whitespaces
 // [ ] TODO: make sure form doesn't submit if element is invalid
-  //trying to see if it is aria-required that is getting read wrong
+// trying to see if it is aria-required that is getting read wrong
 
 // DOM elements
 const domInputs = document.querySelectorAll('input');
@@ -90,10 +90,10 @@ function validateZip() {
 function formSubmissionHandler(event) {
   event.preventDefault();
   /** @type {HTMLFormElement} */
-  const form = event.target;
-  console.log('form.checkValidity():', form.checkValidity())
-  if (!form.checkValidity()) {
-    form.reportValidity();
+  const formToCheck = event.target;
+  console.log('form.checkValidity():', formToCheck.checkValidity());
+  if (!formToCheck.checkValidity()) {
+    formToCheck.reportValidity();
     console.log('form not valid');
   } else {
     const msg = document.createElement('div', {
