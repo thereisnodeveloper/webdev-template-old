@@ -7,3 +7,11 @@ form input:invalid {
     outline: 3px dotted red;
 
 }
+
+.validClassName {
+  color: blue;
+}
+
+.invalid-class-name {
+  color: red;
+}

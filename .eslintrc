@@ -1,6 +1,6 @@
 {
-  "plugins": ["sonarjs"],
-  "extends": ["airbnb-base", "plugin:n/recommended", "plugin:sonarjs/recommended-legacy", "plugin:unicorn/recommended"],
+  "plugins": ["sonarjs", "css-modules", "html"],
+  "extends": ["airbnb-base", "plugin:n/recommended", "plugin:sonarjs/recommended-legacy", "plugin:unicorn/recommended",    "plugin:depend/recommended",    "plugin:css-modules/recommended"],
 
 
   "parserOptions": {

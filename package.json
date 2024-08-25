@@ -5,7 +5,7 @@
   "main": "index.js",
   "mode": "development",
   "scripts": {
-    "test": "xo",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"
@@ -22,6 +22,9 @@
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-css-modules": "^2.12.0",
+    "eslint-plugin-depend": "^0.11.0",
+    "eslint-plugin-html": "^8.1.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-sonarjs": "^2.0.1",

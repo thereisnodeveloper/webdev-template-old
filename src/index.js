@@ -3,12 +3,11 @@
 import './reset.css';
 import './style.css';
 
-const testElem = document.createElement('div');
-  //
+const testElement = document.createElement('div');
+
 // [x] TODO:bulid HTML form
 // [x] TODO:check HTML required
 // novalidate
-
 // [ ] TODO: write JS validation for each
 // [x] TODO:  password- length, pattern
 // [x] TODO: password- check with confirmation password
@@ -92,15 +91,15 @@ function formSubmissionHandler(event) {
   /** @type {HTMLFormElement} */
   const formToCheck = event.target;
   console.log('form.checkValidity():', formToCheck.checkValidity());
-  if (!formToCheck.checkValidity()) {
-    formToCheck.reportValidity();
-    console.log('form not valid');
-  } else {
-    const msg = document.createElement('div', {
+  if (formToCheck.checkValidity()) {
+    const message = document.createElement('div', {
       textContent: 'Form Submitted',
     });
-    document.body.appendChild(msg);
+    document.body.append(message);
     console.log('form submitted');
+  } else {
+    formToCheck.reportValidity();
+    console.log('form not valid');
   }
 }
 
@@ -120,6 +119,6 @@ function preventEmpty(input) {
     console.log(input.validity.reportValidity());
   }
 }
-[passwordOriginal, passwordToCompare, email, country, zip].forEach((input) => {
+for (const input of [passwordOriginal, passwordToCompare, email, country, zip]) {
   input.addEventListener('submit', () => preventEmpty(input));
-});
+}
